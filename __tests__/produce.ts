@@ -200,8 +200,10 @@ describe("curried producer", () => {
 		// With initial state:
 		{
 			type Recipe = (state?: State | undefined, ...rest: number[]) => State
-			let bar = produce((state: Draft<State>, ...args: number[]) => {},
-			_ as State)
+			let bar = produce(
+				(state: Draft<State>, ...args: number[]) => {},
+				_ as State
+			)
 			assert(bar, _ as Recipe)
 			bar(_ as State, 1, 2)
 			bar(_ as State)
@@ -532,7 +534,7 @@ it("infers draft, #720 - 2", () => {
 	function useState<S>(
 		initialState: S | (() => S)
 	): [S, Dispatch<SetStateAction<S>>] {
-		return [initialState, function() {}] as any
+		return [initialState, function () {}] as any
 	}
 	type Dispatch<A> = (value: A) => void
 	type SetStateAction<S> = S | ((prevState: S) => S)
@@ -569,7 +571,7 @@ it("infers draft, #720 - 3", () => {
 	function useState<S>(
 		initialState: S | (() => S)
 	): [S, Dispatch<SetStateAction<S>>] {
-		return [initialState, function() {}] as any
+		return [initialState, function () {}] as any
 	}
 	type Dispatch<A> = (value: A) => void
 	type SetStateAction<S> = S | ((prevState: S) => S)
