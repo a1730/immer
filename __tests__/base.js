@@ -2778,6 +2778,53 @@ function runBaseTest(
 			expect(nextState).toEqual({foo: {bar: {a: true, c: true}}})
 		})
 
+		// #1209 - spread draft object and push back via array methods
+		it("can spread a draft and push it back into the array", () => {
+			const base = [{nestedArray: []}]
+			const next = produce(base, s => {
+				s.push({...s[0]})
+			})
+			expect(next[0].nestedArray).toEqual([])
+			expect(next[1].nestedArray).toEqual([])
+			expect(next[1].nestedArray.length).toBe(0)
+		})
+
+		it("can spread a draft with nested objects and push it back", () => {
+			const base = [{nested: {value: 42}}]
+			const next = produce(base, s => {
+				s.push({...s[0]})
+			})
+			expect(next[0].nested.value).toBe(42)
+			expect(next[1].nested.value).toBe(42)
+		})
+
+		it("can push a draft value directly into its parent array", () => {
+			const base = [{nestedArray: []}]
+			const next = produce(base, s => {
+				s.push(s[0])
+			})
+			expect(next[0].nestedArray).toEqual([])
+			expect(next[1].nestedArray).toEqual([])
+		})
+
+		it("can unshift a spread draft back into the array", () => {
+			const base = [{nestedArray: [1]}]
+			const next = produce(base, s => {
+				s.unshift({...s[0]})
+			})
+			expect(next[0].nestedArray).toEqual([1])
+			expect(next[1].nestedArray).toEqual([1])
+		})
+
+		it("can splice a spread draft into the array", () => {
+			const base = [{nestedArray: ["a", "b"]}]
+			const next = produce(base, s => {
+				s.splice(0, 0, {...s[0]})
+			})
+			expect(next[0].nestedArray).toEqual(["a", "b"])
+			expect(next[1].nestedArray).toEqual(["a", "b"])
+		})
+
 		it("supports assigning undefined to an existing property", () => {
 			const nextState = produce(baseState, s => {
 				s.aProp = undefined
