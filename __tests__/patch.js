@@ -100,7 +100,7 @@ function runPatchTests(
 }
 
 // Convenience functions for common use cases
-runPatchTests.only = function(
+runPatchTests.only = function (
 	testName,
 	base,
 	producer,
@@ -119,7 +119,7 @@ runPatchTests.only = function(
 	)
 }
 
-runPatchTests.skip = function(
+runPatchTests.skip = function (
 	testName,
 	base,
 	producer,
@@ -1223,7 +1223,7 @@ test("#676 patching Date objects", () => {
 		}
 	}
 
-	const [nextState, patches] = produceWithPatches({}, function(draft) {
+	const [nextState, patches] = produceWithPatches({}, function (draft) {
 		draft.date = new Date("2020-11-10T08:08:08.003Z")
 		draft.test = new Test()
 	})
