@@ -184,12 +184,6 @@ export interface IProduce {
 	): InferCurriedFromRecipe<Recipe, false>
 
 	/** Curried producer that infers curried from the State generic, which is explicitly passed in.  */
-	<State>(
-		recipe: (
-			state: Draft<State>,
-			initialState: State
-		) => ValidRecipeReturnType<State>
-	): (state?: State) => State
 	<State, Args extends any[]>(
 		recipe: (
 			state: Draft<State>,
